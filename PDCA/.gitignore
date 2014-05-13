@@ -1,0 +1,11 @@
+# Config Files for the Ecplipse IDE 
+.project 
+.classpath 
+.settings 
+target/* 
+ 
+# Classfiles for the custom linting 
+*.class 
+ 
+# Downloadfiles 
+files/*
