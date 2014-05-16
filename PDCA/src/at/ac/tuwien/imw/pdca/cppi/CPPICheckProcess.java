@@ -1,11 +1,14 @@
 package at.ac.tuwien.imw.pdca.cppi;
 
+
+import java.io.Closeable;
+import java.io.IOException;
 import java.math.BigDecimal;
+
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.imw.pdca.ActProcess;
 import at.ac.tuwien.imw.pdca.CheckProcess;
 import at.ac.tuwien.imw.pdca.CheckingRules;
 import at.ac.tuwien.imw.pdca.Deviation;
@@ -13,11 +16,14 @@ import at.ac.tuwien.imw.pdca.MeasuredPerformanceValue;
 import at.ac.tuwien.imw.pdca.ObjectiveSetting;
 import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
-public class CPPICheckProcess extends CheckProcess {
+public class CPPICheckProcess extends CheckProcess implements Closeable {
 
 	private final static Logger log = LogManager.getLogger(CheckProcess.class);
-	
+
 	private static CPPICheckProcess instance;
+
+	private boolean running = true;
+
 	private CheckingRules checkRules;
   private ObjectiveSetting<BigDecimal> objective;
   private MeasuredPerformanceValue<BigDecimal> performanceMeasureValue;
@@ -35,7 +41,7 @@ public class CPPICheckProcess extends CheckProcess {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (running) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -62,6 +68,11 @@ public class CPPICheckProcess extends CheckProcess {
 	  deviation = ((BigDecimal)performanceMeasureValue.getValue()).subtract((BigDecimal)objective.getObjectiveSetting());
 	  
 		return new CPPIDeviation(deviation);
+	}
+
+	@Override
+	public void close() throws IOException {
+		running = false;
 	}
 
 }
