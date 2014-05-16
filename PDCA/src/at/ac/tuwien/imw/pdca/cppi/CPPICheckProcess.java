@@ -57,7 +57,10 @@ public class CPPICheckProcess extends CheckProcess {
 
 	@Override
 	public Deviation<BigDecimal> getCheckResult(ObjectiveSetting objective, MeasuredPerformanceValue performanceMeasureValue) {
-	  BigDecimal deviation = ((BigDecimal)performanceMeasureValue.getValue()).subtract((BigDecimal)objective.getObjectiveSetting());
+	  BigDecimal deviation;
+	 
+	  deviation = ((BigDecimal)performanceMeasureValue.getValue()).subtract((BigDecimal)objective.getObjectiveSetting());
+	  
 		return new CPPIDeviation(deviation);
 	}
 
