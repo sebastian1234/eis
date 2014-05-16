@@ -44,6 +44,7 @@ public class CPPIValues {
 				*/
 	}
 	
+	
 
 	public CPPIValues(CPPIPlanConfiguration conf, BigDecimal portfolio, BigDecimal tsr, BigDecimal floor, BigDecimal cushion, BigDecimal exposure, BigDecimal reserveasset, BigDecimal partRiskyAsset, BigDecimal partRisklessAsset, BigDecimal previousStockPrice, BigDecimal actualStockPrice) {
 		super();
