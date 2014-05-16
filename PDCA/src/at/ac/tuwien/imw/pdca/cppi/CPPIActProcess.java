@@ -4,18 +4,37 @@ import at.ac.tuwien.imw.pdca.ActProcess;
 import at.ac.tuwien.imw.pdca.CorrectiveActOutput;
 import at.ac.tuwien.imw.pdca.Deviation;
 
-public class CPPIActProcess extends ActProcess{
+public class CPPIActProcess extends ActProcess {
 
-  @Override
-  public void run() {
-    // TODO Auto-generated method stub
-    
-  }
+	private static CPPIActProcess instance;
 
-  @Override
-  public CorrectiveActOutput act(Deviation deviation) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+	private CPPIActProcess() {
+	}
+
+	public static synchronized CPPIActProcess getInstance() {
+		if (instance == null) {
+			instance = new CPPIActProcess();
+		}
+		return instance;
+	}
+
+	@Override
+	public void run() {
+
+		while (true) {
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// e.printStackTrace();
+			}
+			System.out.println("Act Process");
+		}
+	}
+
+	@Override
+	public CorrectiveActOutput act(Deviation deviation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
