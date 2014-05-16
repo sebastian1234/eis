@@ -11,6 +11,7 @@ import at.ac.tuwien.imw.pdca.Deviation;
 import at.ac.tuwien.imw.pdca.MeasuredPerformanceValue;
 import at.ac.tuwien.imw.pdca.cppi.CPPIPlanConfiguration;
 import at.ac.tuwien.imw.pdca.cppi.CPPITSR;
+import at.ac.tuwien.imw.pdca.cppi.CPPIValues;
 
 /**
  * PDCA Service is a singleton that holds the state of a PDCA process
@@ -41,6 +42,9 @@ public class CPPIService {
 
 	// predefined stock prices
 	private ArrayList<Integer> stockPrices;
+
+	// Wrapper for all cppi values (exposure, reserve asset, etc.)
+	private CPPIValues cppiValues;
 
 	private CPPIService() {
 	}
@@ -89,6 +93,17 @@ public class CPPIService {
 
 	public void setPlanConfiguration(CPPIPlanConfiguration conf) {
 		this.planConfiguration = conf;
+	}
+
+	public CPPIValues getCppiValues() {
+		if (cppiValues == null) {
+			cppiValues = new CPPIValues(planConfiguration);
+		}
+		return cppiValues;
+	}
+
+	public void setCppiValues(CPPIValues cppiValues) {
+		this.cppiValues = cppiValues;
 	}
 
 	public BigDecimal getCurrentStockPrice() {

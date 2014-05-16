@@ -11,8 +11,8 @@ public class CPPIDoRules implements DoRules {
 	@Override
 	public void applyDoRules() {
 
-		CPPIValues.getInstance().setConf(service.getPlanConfiguration());
-		// values.setConf(service.getPlanConfiguration());
+		values = new CPPIValues(service.getPlanConfiguration());
+		values.setConf(service.getPlanConfiguration());
 
 	}
 

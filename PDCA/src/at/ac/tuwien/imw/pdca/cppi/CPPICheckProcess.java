@@ -41,12 +41,16 @@ public class CPPICheckProcess extends CheckProcess {
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
+			CPPIService service = CPPIService.getInstance();
 			log.info("Check Process");
-			objective = new CPPIObjectiveSetting(CPPIValues.getInstance().getFloor());
+			
+			objective = new CPPIObjectiveSetting(service.getCppiValues().getFloor());
+			//CPPIPlanConfiguration config = service.getPlanConfiguration();
+			//objective = new CPPIObjectiveSetting(config.getPortfolio().divide(((new BigDecimal(1.0)).add(config.getRisklessAssetInterest()))).pow(service.getCurrentPeriod()));
 			performanceMeasureValue = (new CPPIMeasureRules()).measure();
 			Deviation<BigDecimal> dev = getCheckResult(objective, performanceMeasureValue);
-			CPPIService.getInstance().setTsrChange(dev);
-			CPPIService.getInstance().setDeviationValue(dev.getValue());
+			service.setTsrChange(dev);
+			service.setDeviationValue(dev.getValue());
 			checkRules.applyCheckingRules();
 		}
 	}
