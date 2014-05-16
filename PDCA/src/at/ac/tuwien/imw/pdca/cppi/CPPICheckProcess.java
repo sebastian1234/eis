@@ -1,24 +1,38 @@
 package at.ac.tuwien.imw.pdca.cppi;
 
+<<<<<<< HEAD
 import java.io.Closeable;
 import java.io.IOException;
+=======
+import java.math.BigDecimal;
+>>>>>>> f5d0ae5205f94fba2aebf00c0db6cee8bddd539f
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.imw.pdca.CheckProcess;
+import at.ac.tuwien.imw.pdca.CheckingRules;
 import at.ac.tuwien.imw.pdca.Deviation;
 import at.ac.tuwien.imw.pdca.MeasuredPerformanceValue;
 import at.ac.tuwien.imw.pdca.ObjectiveSetting;
+import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
 public class CPPICheckProcess extends CheckProcess implements Closeable {
 
 	private final static Logger log = LogManager.getLogger(CheckProcess.class);
 
 	private static CPPICheckProcess instance;
+<<<<<<< HEAD
 	private boolean running = true;
 
+=======
+	private CheckingRules checkRules;
+  private ObjectiveSetting<BigDecimal> objective;
+  private MeasuredPerformanceValue<BigDecimal> performanceMeasureValue;
+  
+>>>>>>> f5d0ae5205f94fba2aebf00c0db6cee8bddd539f
 	private CPPICheckProcess() {
+	  checkRules = new CPPICheckRules();
 	}
 
 	public static synchronized CPPICheckProcess getInstance() {
@@ -36,14 +50,24 @@ public class CPPICheckProcess extends CheckProcess implements Closeable {
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
+			CPPIService service = CPPIService.getInstance();
 			log.info("Check Process");
+			
+			objective = new CPPIObjectiveSetting(service.getCppiValues().getFloor());
+			//CPPIPlanConfiguration config = service.getPlanConfiguration();
+			//objective = new CPPIObjectiveSetting(config.getPortfolio().divide(((new BigDecimal(1.0)).add(config.getRisklessAssetInterest()))).pow(service.getCurrentPeriod()));
+			performanceMeasureValue = (new CPPIMeasureRules()).measure();
+			Deviation<BigDecimal> dev = getCheckResult(objective, performanceMeasureValue);
+			service.setTsrChange(dev);
+			service.setDeviationValue(dev.getValue());
+			checkRules.applyCheckingRules();
 		}
 	}
 
 	@Override
-	public Deviation getCheckResult(ObjectiveSetting objective, MeasuredPerformanceValue performanceMeasureValue) {
-		// TODO Auto-generated method stub
-		return null;
+	public Deviation<BigDecimal> getCheckResult(ObjectiveSetting objective, MeasuredPerformanceValue performanceMeasureValue) {
+	  BigDecimal deviation = ((BigDecimal)performanceMeasureValue.getValue()).subtract((BigDecimal)objective.getObjectiveSetting());
+		return new CPPIDeviation(deviation);
 	}
 
 	@Override

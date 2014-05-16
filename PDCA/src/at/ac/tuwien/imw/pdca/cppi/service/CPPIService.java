@@ -141,5 +141,9 @@ public class CPPIService {
 	public void setTsrChange(Deviation<BigDecimal> tsrChange) {
 		this.tsrChange = tsrChange;
 	}
+	
+	public void exit(){
+	  //TODO exit
+	}
 
 }
