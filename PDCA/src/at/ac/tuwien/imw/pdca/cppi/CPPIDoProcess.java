@@ -8,6 +8,7 @@ import at.ac.tuwien.imw.pdca.DoProcess;
 
 public class CPPIDoProcess extends DoProcess {
 	
+	
 	private final static Logger log = LogManager.getLogger(DoProcess.class);
 	private static CPPIDoProcess instance;
 
