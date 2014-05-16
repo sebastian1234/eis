@@ -15,7 +15,7 @@ public class CPPIDoRules implements DoRules {
 
 	private CPPIService service = CPPIService.getInstance();
 	private CPPIValues values;
-	private BigDecimal floor, cushion, exposure, reserveasset, partRsikyAsset, partRisklessAsset, portfolio;
+	private BigDecimal floor, cushion, exposure, reserveasset, partRiskyAsset, partRisklessAsset, portfolio;
 
 	@Override
 	public void applyDoRules() {
@@ -28,8 +28,20 @@ public class CPPIDoRules implements DoRules {
 		double e = 365 - service.getCurrentPeriod();
 		double div = e / 365;		
 		floor = new BigDecimal(p / Math.pow(n, div)).setScale(2, BigDecimal.ROUND_HALF_UP);
+
 		
 		//calc exposure
+		BigDecimal st0 = service.getPreviousStockPrice();
+		BigDecimal st1 = service.getCurrentStockPrice();
+		
+		partRiskyAsset = values.getPartRiskyAsset();
+		partRisklessAsset = values.getPartRisklessAsset();
+		
+		BigDecimal TSR = st1.divide(st0,4,  BigDecimal.ROUND_HALF_UP).subtract(new BigDecimal(1));
+		
+		log.info("TSR: " + TSR);
+						
+		
 				
 		
 		log.info(floor + " - " + service.getCurrentPeriod());
