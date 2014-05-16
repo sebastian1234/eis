@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import at.ac.tuwien.imw.pdca.cppi.CPPIActProcess;
 import at.ac.tuwien.imw.pdca.cppi.CPPICheckProcess;
 import at.ac.tuwien.imw.pdca.cppi.CPPIDoProcess;
+import at.ac.tuwien.imw.pdca.cppi.CPPIPlanConfiguration;
 import at.ac.tuwien.imw.pdca.cppi.CPPIPlanProcess;
 
 public class CPPISimulation {
@@ -29,6 +30,7 @@ public class CPPISimulation {
 
 		// Init
 		CPPIService.getInstance().init();
+		CPPIService.getInstance().setPlanConfiguration(new CPPIPlanConfiguration());
 
 		// Threads
 		Thread planProcessThread = new Thread(CPPIPlanProcess.getInstance());

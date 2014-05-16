@@ -12,6 +12,7 @@ public class CPPIDoProcess extends DoProcess {
 	private static CPPIDoProcess instance;
 
 	private CPPIDoProcess() {
+		doRules = new CPPIDoRules();
 	}
 
 	public static synchronized CPPIDoProcess getInstance() {
@@ -30,13 +31,13 @@ public class CPPIDoProcess extends DoProcess {
 				// e.printStackTrace();
 			}
 			log.info("Do Process");
+			operate();
 		}
 	}
 
 	@Override
 	public void operate() {
-		// TODO Auto-generated method stub
-
+		doRules.applyDoRules();
 	}
 
 }

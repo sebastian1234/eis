@@ -26,12 +26,24 @@ public class CPPIValues {
 		this.conf = conf;
 		portfolio = conf.getPortfolio();
 
+		log.info("TEST:" + portfolio);
+		
 		// TODO Implement me
 		// some calculations
 		// i.e. floor, cushion, exposure, ...
 
-		log.info("Configuration period: " + 0 + ", Floor: " + floor.setScale(4, BigDecimal.ROUND_HALF_UP) + ", Cushion: " + cushion.setScale(4, BigDecimal.ROUND_HALF_UP) + ", Exposure: " + exposure.setScale(4, BigDecimal.ROUND_HALF_UP) + ", Reserveasset: " + reserveasset.setScale(4, BigDecimal.ROUND_HALF_UP) + ", PartRisky: " + partRiskyAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + ", PartRiskless: " + partRisklessAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + ", NewPortfolio: " + portfolio.setScale(4, BigDecimal.ROUND_HALF_UP));
+		/*
+		log.info("Configuration period: " + 0 + 
+				", Floor: " + floor.setScale(4, BigDecimal.ROUND_HALF_UP) + 
+				", Cushion: " + cushion.setScale(4, BigDecimal.ROUND_HALF_UP) + 
+				", Exposure: " + exposure.setScale(4, BigDecimal.ROUND_HALF_UP) + 
+				", Reserveasset: " + reserveasset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
+				", PartRisky: " + partRiskyAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
+				", PartRiskless: " + partRisklessAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
+				", NewPortfolio: " + portfolio.setScale(4, BigDecimal.ROUND_HALF_UP));
+				*/
 	}
+	
 
 	public CPPIValues(CPPIPlanConfiguration conf, BigDecimal portfolio, BigDecimal tsr, BigDecimal floor, BigDecimal cushion, BigDecimal exposure, BigDecimal reserveasset, BigDecimal partRiskyAsset, BigDecimal partRisklessAsset, BigDecimal previousStockPrice, BigDecimal actualStockPrice) {
 		super();
