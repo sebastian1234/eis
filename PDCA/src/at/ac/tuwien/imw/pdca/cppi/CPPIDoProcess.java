@@ -1,8 +1,14 @@
 package at.ac.tuwien.imw.pdca.cppi;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import at.ac.tuwien.imw.pdca.CheckProcess;
 import at.ac.tuwien.imw.pdca.DoProcess;
 
 public class CPPIDoProcess extends DoProcess {
+	
+	private final static Logger log = LogManager.getLogger(DoProcess.class);
 	private static CPPIDoProcess instance;
 
 	private CPPIDoProcess() {
@@ -19,11 +25,11 @@ public class CPPIDoProcess extends DoProcess {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
-			System.out.println("Do Process");
+			log.info("Do Process");
 		}
 	}
 
