@@ -13,6 +13,7 @@ public class CPPIPlanProcess extends PlanProcess {
 	private static CPPIPlanProcess instance;
 
 	private CPPIPlanProcess() {
+		planningRules = new CPPIPlanRules();		
 	}
 
 	public static synchronized CPPIPlanProcess getInstance() {
@@ -31,13 +32,13 @@ public class CPPIPlanProcess extends PlanProcess {
 				// e.printStackTrace();
 			}
 			log.info("Plan Process");
+			plan();
 		}
 	}
 
 	@Override
 	public void plan() {
-		// TODO Auto-generated method stub
-
+		planningRules.applyPlanningRules();
 	}
 
 }

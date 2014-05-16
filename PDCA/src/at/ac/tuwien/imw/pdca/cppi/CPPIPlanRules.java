@@ -1,13 +1,14 @@
 package at.ac.tuwien.imw.pdca.cppi;
 
 import at.ac.tuwien.imw.pdca.PlanningRules;
+import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
-public class CPPIPlanRules implements PlanningRules{
+public class CPPIPlanRules implements PlanningRules<Object>{
 
 	@Override
 	public Object applyPlanningRules() {
-		// TODO Auto-generated method stub
-		return null;
+		CPPIService.getInstance().setPlanConfiguration(new CPPIPlanConfiguration());
+		return null; //warum soll hier auf einmal etwas zurückgegeben werden?
 	}
 
 }

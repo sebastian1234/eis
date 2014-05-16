@@ -30,7 +30,7 @@ public class CPPISimulation {
 
 		// Init
 		CPPIService.getInstance().init();
-		CPPIService.getInstance().setPlanConfiguration(new CPPIPlanConfiguration());
+		CPPIService.getInstance().setPlanConfiguration(new CPPIPlanConfiguration()); //auslagern in plan?
 
 		// Threads
 		Thread planProcessThread = new Thread(CPPIPlanProcess.getInstance());
