@@ -1,11 +1,8 @@
 package at.ac.tuwien.imw.pdca.cppi;
 
-<<<<<<< HEAD
 import java.io.Closeable;
 import java.io.IOException;
-=======
 import java.math.BigDecimal;
->>>>>>> f5d0ae5205f94fba2aebf00c0db6cee8bddd539f
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -22,17 +19,14 @@ public class CPPICheckProcess extends CheckProcess implements Closeable {
 	private final static Logger log = LogManager.getLogger(CheckProcess.class);
 
 	private static CPPICheckProcess instance;
-<<<<<<< HEAD
 	private boolean running = true;
 
-=======
 	private CheckingRules checkRules;
-  private ObjectiveSetting<BigDecimal> objective;
-  private MeasuredPerformanceValue<BigDecimal> performanceMeasureValue;
-  
->>>>>>> f5d0ae5205f94fba2aebf00c0db6cee8bddd539f
+	private ObjectiveSetting<BigDecimal> objective;
+	private MeasuredPerformanceValue<BigDecimal> performanceMeasureValue;
+
 	private CPPICheckProcess() {
-	  checkRules = new CPPICheckRules();
+		checkRules = new CPPICheckRules();
 	}
 
 	public static synchronized CPPICheckProcess getInstance() {
@@ -52,10 +46,10 @@ public class CPPICheckProcess extends CheckProcess implements Closeable {
 			}
 			CPPIService service = CPPIService.getInstance();
 			log.info("Check Process");
-			
+
 			objective = new CPPIObjectiveSetting(service.getCppiValues().getFloor());
-			//CPPIPlanConfiguration config = service.getPlanConfiguration();
-			//objective = new CPPIObjectiveSetting(config.getPortfolio().divide(((new BigDecimal(1.0)).add(config.getRisklessAssetInterest()))).pow(service.getCurrentPeriod()));
+			// CPPIPlanConfiguration config = service.getPlanConfiguration();
+			// objective = new CPPIObjectiveSetting(config.getPortfolio().divide(((new BigDecimal(1.0)).add(config.getRisklessAssetInterest()))).pow(service.getCurrentPeriod()));
 			performanceMeasureValue = (new CPPIMeasureRules()).measure();
 			Deviation<BigDecimal> dev = getCheckResult(objective, performanceMeasureValue);
 			service.setTsrChange(dev);
@@ -66,7 +60,7 @@ public class CPPICheckProcess extends CheckProcess implements Closeable {
 
 	@Override
 	public Deviation<BigDecimal> getCheckResult(ObjectiveSetting objective, MeasuredPerformanceValue performanceMeasureValue) {
-	  BigDecimal deviation = ((BigDecimal)performanceMeasureValue.getValue()).subtract((BigDecimal)objective.getObjectiveSetting());
+		BigDecimal deviation = ((BigDecimal) performanceMeasureValue.getValue()).subtract((BigDecimal) objective.getObjectiveSetting());
 		return new CPPIDeviation(deviation);
 	}
 
