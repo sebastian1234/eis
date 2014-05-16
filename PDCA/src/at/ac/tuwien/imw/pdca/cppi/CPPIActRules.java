@@ -25,14 +25,11 @@ public class CPPIActRules implements AdaptiveActRules {
 		if (valueA.compareTo(valueB) < 0){
       service.getCppiValues().setPartRiskyAsset(valueA);
       service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueA));
-      log.info("New risky portion: "+valueA);
-      log.info("New riskless portion: "+service.getCurrentTSR().getValue().subtract(valueA));
+      log.info("New risky portion: "+valueA+"; New riskless portion: "+service.getCurrentTSR().getValue().subtract(valueA));
     } else {
       service.getCppiValues().setPartRiskyAsset(valueB);
       service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueB));
-      log.info("New risky portion: "+valueB);
-      log.info("New riskless portion: "+service.getCurrentTSR().getValue().subtract(valueB));
-      
+      log.info("New risky portion: "+valueB+"; New riskless portion: "+service.getCurrentTSR().getValue().subtract(valueB));
     } 
 	}
 
