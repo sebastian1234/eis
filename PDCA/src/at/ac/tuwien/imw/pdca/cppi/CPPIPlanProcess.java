@@ -1,19 +1,21 @@
 package at.ac.tuwien.imw.pdca.cppi;
 
+import java.io.Closeable;
+import java.io.IOException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import at.ac.tuwien.imw.pdca.CheckProcess;
 import at.ac.tuwien.imw.pdca.PlanProcess;
 
-public class CPPIPlanProcess extends PlanProcess {
-	
+public class CPPIPlanProcess extends PlanProcess implements Closeable {
+
 	private final static Logger log = LogManager.getLogger(PlanProcess.class);
-	
+	private boolean running = true;
 	private static CPPIPlanProcess instance;
 
 	private CPPIPlanProcess() {
-		planningRules = new CPPIPlanRules();		
+		planningRules = new CPPIPlanRules();
 	}
 
 	public static synchronized CPPIPlanProcess getInstance() {
@@ -25,7 +27,7 @@ public class CPPIPlanProcess extends PlanProcess {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (running) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -41,4 +43,8 @@ public class CPPIPlanProcess extends PlanProcess {
 		planningRules.applyPlanningRules();
 	}
 
+	@Override
+	public void close() throws IOException {
+		running = false;
+	}
 }
