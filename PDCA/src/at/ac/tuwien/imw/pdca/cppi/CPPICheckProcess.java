@@ -54,9 +54,18 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 			//CPPIPlanConfiguration config = service.getPlanConfiguration();
 			//objective = new CPPIObjectiveSetting(config.getPortfolio().divide(((new BigDecimal(1.0)).add(config.getRisklessAssetInterest()))).pow(service.getCurrentPeriod()));
 			performanceMeasureValue = (new CPPIMeasureRules()).measure();
+			
 			Deviation<BigDecimal> dev = getCheckResult(objective, performanceMeasureValue);
-			service.setTsrChange(dev);
 			service.setDeviationValue(dev.getValue());
+			
+			if (dev.getValue().compareTo(BigDecimal.ZERO) > 0){
+			  service.setTsrChange(dev);
+			  service.getCppiValues().setCushion(dev.getValue());
+			} else {
+			  service.setTsrChange((new CPPIDeviation(new BigDecimal(0))));
+			  service.getCppiValues().setCushion(new BigDecimal(0));
+			}
+			service.setCurrentTSR(performanceMeasureValue);
 			checkRules.applyCheckingRules();
 		}
 	}
