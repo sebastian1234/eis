@@ -21,48 +21,59 @@ public class CPPIValues {
 	private BigDecimal previousStockPrice; // S(t-1)
 	private BigDecimal actualStockPrice; // S(t)
 
-	public CPPIValues(CPPIPlanConfiguration conf) {
-		super();
-		this.conf = conf;
-		portfolio = conf.getPortfolio();
+	private static CPPIValues instance;
 
-		log.info("TEST:" + portfolio);
-		
-		// TODO Implement me
-		// some calculations
-		// i.e. floor, cushion, exposure, ...
+	private CPPIValues() {
 
-		/*
-		log.info("Configuration period: " + 0 + 
-				", Floor: " + floor.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", Cushion: " + cushion.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", Exposure: " + exposure.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", Reserveasset: " + reserveasset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", PartRisky: " + partRiskyAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", PartRiskless: " + partRisklessAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", NewPortfolio: " + portfolio.setScale(4, BigDecimal.ROUND_HALF_UP));
-				*/
 	}
-	
-	
 
-	public CPPIValues(CPPIPlanConfiguration conf, BigDecimal portfolio, BigDecimal tsr, BigDecimal floor, BigDecimal cushion, BigDecimal exposure, BigDecimal reserveasset, BigDecimal partRiskyAsset, BigDecimal partRisklessAsset, BigDecimal previousStockPrice, BigDecimal actualStockPrice) {
-		super();
-		this.conf = conf;
-		this.portfolio = portfolio;
-		this.tsr = tsr;
-		this.floor = floor;
-		this.cushion = cushion;
-		this.exposure = exposure;
-		this.reserveasset = reserveasset;
-		this.partRiskyAsset = partRiskyAsset;
-		this.partRisklessAsset = partRisklessAsset;
-		this.previousStockPrice = previousStockPrice;
-		this.actualStockPrice = actualStockPrice;
+	public static synchronized CPPIValues getInstance() {
+		if (instance == null) {
+			instance = new CPPIValues();
+		}
+		return instance;
+	}
+
+	// public CPPIValues(CPPIPlanConfiguration conf) {
+	// super();
+	// this.conf = conf;
+	// portfolio = conf.getPortfolio();
+	//
+	// log.info("TEST:" + portfolio);
+	//
+	// // TODO Implement me
+	// // some calculations
+	// // i.e. floor, cushion, exposure, ...
+	//
+	// /*
+	// * log.info("Configuration period: " + 0 + ", Floor: " + floor.setScale(4, BigDecimal.ROUND_HALF_UP) + ", Cushion: " + cushion.setScale(4, BigDecimal.ROUND_HALF_UP) + ", Exposure: " + exposure.setScale(4, BigDecimal.ROUND_HALF_UP) + ", Reserveasset: " + reserveasset.setScale(4, BigDecimal.ROUND_HALF_UP) + ", PartRisky: " + partRiskyAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + ", PartRiskless: " + partRisklessAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + ", NewPortfolio: " + portfolio.setScale(4, BigDecimal.ROUND_HALF_UP));
+	// */
+	// }
+	//
+	//
+	//
+	// public CPPIValues(CPPIPlanConfiguration conf, BigDecimal portfolio, BigDecimal tsr, BigDecimal floor, BigDecimal cushion, BigDecimal exposure, BigDecimal reserveasset, BigDecimal partRiskyAsset, BigDecimal partRisklessAsset, BigDecimal previousStockPrice, BigDecimal actualStockPrice) {
+	// super();
+	// this.conf = conf;
+	// this.portfolio = portfolio;
+	// this.tsr = tsr;
+	// this.floor = floor;
+	// this.cushion = cushion;
+	// this.exposure = exposure;
+	// this.reserveasset = reserveasset;
+	// this.partRiskyAsset = partRiskyAsset;
+	// this.partRisklessAsset = partRisklessAsset;
+	// this.previousStockPrice = previousStockPrice;
+	// this.actualStockPrice = actualStockPrice;
+	// }
+
+	private void init() {
+		portfolio = conf.getPortfolio();
 	}
 
 	public CPPIPlanConfiguration getConf() {
 		return conf;
+
 	}
 
 	public BigDecimal getPortfolio() {
@@ -107,6 +118,51 @@ public class CPPIValues {
 
 	public BigDecimal getActualStockPrice() {
 		return actualStockPrice;
+	}
+
+	public void setConf(CPPIPlanConfiguration conf) {
+		this.conf = conf;
+		init();
+	}
+
+	public void setPortfolio(BigDecimal portfolio) {
+		this.portfolio = portfolio;
+	}
+
+	public void setTsr(BigDecimal tsr) {
+		this.tsr = tsr;
+	}
+
+	public void setFloor(BigDecimal floor) {
+		this.floor = floor;
+	}
+
+	public void setCushion(BigDecimal cushion) {
+		this.cushion = cushion;
+	}
+
+	public void setExposure(BigDecimal exposure) {
+		this.exposure = exposure;
+	}
+
+	public void setReserveasset(BigDecimal reserveasset) {
+		this.reserveasset = reserveasset;
+	}
+
+	public void setPartRiskyAsset(BigDecimal partRiskyAsset) {
+		this.partRiskyAsset = partRiskyAsset;
+	}
+
+	public void setPartRisklessAsset(BigDecimal partRisklessAsset) {
+		this.partRisklessAsset = partRisklessAsset;
+	}
+
+	public void setPreviousStockPrice(BigDecimal previousStockPrice) {
+		this.previousStockPrice = previousStockPrice;
+	}
+
+	public void setActualStockPrice(BigDecimal actualStockPrice) {
+		this.actualStockPrice = actualStockPrice;
 	}
 
 }
