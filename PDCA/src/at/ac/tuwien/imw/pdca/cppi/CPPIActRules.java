@@ -11,29 +11,30 @@ import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
 public class CPPIActRules implements AdaptiveActRules {
 
-  private final static Logger log = LogManager.getLogger(ActProcess.class);
-  
-  CPPIService service;
-  
-  CPPIActRules(){
-    service = CPPIService.getInstance();
-  }
+	private final static Logger log = LogManager.getLogger(ActProcess.class);
+
+	CPPIService service;
+
+	CPPIActRules() {
+		service = CPPIService.getInstance();
+	}
+
 	@Override
 	public void applyActRules() {
-		BigDecimal valueA = service.getPlanConfiguration().getRiskAssetPercent().multiply(service.getTsrChange().getValue()); 
-		BigDecimal valueB = service.getPlanConfiguration().getLaverage().multiply(service.getCurrentTSR().getValue()); 
-		if (valueA.compareTo(valueB) < 0){
-      service.getCppiValues().setPartRiskyAsset(valueA);
-      service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueA));
-      log.info("New risky portion: "+valueA);
-      log.info("New riskless portion: "+service.getCurrentTSR().getValue().subtract(valueA));
-    } else {
-      service.getCppiValues().setPartRiskyAsset(valueB);
-      service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueB));
-      log.info("New risky portion: "+valueB);
-      log.info("New riskless portion: "+service.getCurrentTSR().getValue().subtract(valueB));
-      
-    } 
+		BigDecimal valueA = service.getPlanConfiguration().getRiskAssetPercent().multiply(service.getTsrChange().getValue());
+		BigDecimal valueB = service.getPlanConfiguration().getLaverage().multiply(service.getCurrentTSR().getValue());
+		if (valueA.compareTo(valueB) < 0) {
+			service.getCppiValues().setPartRiskyAsset(valueA);
+			service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueA));
+			log.info("New risky portion: " + valueA);
+			log.info("New riskless portion: " + service.getCurrentTSR().getValue().subtract(valueA));
+		} else {
+			service.getCppiValues().setPartRiskyAsset(valueB);
+			service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueB));
+			log.info("New risky portion: " + valueB);
+			log.info("New riskless portion: " + service.getCurrentTSR().getValue().subtract(valueB));
+
+		}
 	}
 
 }
