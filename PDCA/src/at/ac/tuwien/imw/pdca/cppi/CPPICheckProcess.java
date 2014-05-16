@@ -16,7 +16,7 @@ import at.ac.tuwien.imw.pdca.MeasuredPerformanceValue;
 import at.ac.tuwien.imw.pdca.ObjectiveSetting;
 import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
-public class CPPICheckProcess extends CheckProcess implements Closeable {
+public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closeable {
 
 	private final static Logger log = LogManager.getLogger(CheckProcess.class);
 
