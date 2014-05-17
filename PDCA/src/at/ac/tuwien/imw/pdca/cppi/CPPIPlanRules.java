@@ -6,12 +6,13 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.imw.pdca.ActProcess;
+import at.ac.tuwien.imw.pdca.PlanProcess;
 import at.ac.tuwien.imw.pdca.PlanningRules;
 import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
 public class CPPIPlanRules implements PlanningRules<Object>{
 
-  private final static Logger log = LogManager.getLogger(ActProcess.class);
+  private final static Logger log = LogManager.getLogger(PlanProcess.class);
 
   CPPIService service;
   
@@ -22,7 +23,10 @@ public class CPPIPlanRules implements PlanningRules<Object>{
 		service.setPlanConfiguration(config);
 		
 		BigDecimal f0 = config.getPortfolio().divide(new BigDecimal(1).add(config.getRisklessAssetInterest()), 20, BigDecimal.ROUND_HALF_UP);
+		service.getCppiValues().setFloor(f0);
 		BigDecimal cushion = config.getPortfolio().subtract(f0);
+		service.getCppiValues().setCushion(cushion);
+		service.getCppiValues().setExposure(config.getPortfolio());
 		log.info("Plan: b:" + config.getRiskAssetPercent()+"; W(0):"+config.getPortfolio());
     log.info("Plan: m:" + config.getLaverage()+"; C(0):"+cushion);
     BigDecimal valueA = config.getRiskAssetPercent().multiply(config.getPortfolio());//.getTsrChange().getValue());
@@ -40,6 +44,16 @@ public class CPPIPlanRules implements PlanningRules<Object>{
 
     }
     
+    log.info("Configuration period: " + service.getCurrentPeriod() + 
+        ", Floor: " + service.getCppiValues().getFloor().setScale(4, BigDecimal.ROUND_HALF_UP) + 
+        ", Cushion: " + service.getCppiValues().getCushion().setScale(4, BigDecimal.ROUND_HALF_UP) + 
+        ", Exposure: " + service.getCppiValues().getExposure().setScale(4, BigDecimal.ROUND_HALF_UP) + 
+        ", PartRisky: " + service.getCppiValues().getPartRiskyAsset().setScale(4, BigDecimal.ROUND_HALF_UP) + 
+        ", PartRiskless: " + service.getCppiValues().getPartRisklessAsset().setScale(4, BigDecimal.ROUND_HALF_UP) + 
+        ", NewPortfolio: " + service.getCppiValues().getPortfolio().setScale(4, BigDecimal.ROUND_HALF_UP) +
+        //", PreviousStockPrice: " + service.getCppiValues().getPreviousStockPrice().setScale(4, BigDecimal.ROUND_HALF_UP) +
+        //", ActualStockPrice: " + service.getCppiValues().getActualStockPrice().setScale(4, BigDecimal.ROUND_HALF_UP)
+        " ");
 		return null; //warum soll hier auf einmal etwas zurückgegeben werden?
 	}
 
