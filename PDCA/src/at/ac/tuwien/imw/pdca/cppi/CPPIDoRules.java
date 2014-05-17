@@ -22,8 +22,12 @@ public class CPPIDoRules implements DoRules {
 
 		values = service.getCppiValues();
 		
+		//portfolio ist immer 100
+		portfolio = values.getPortfolio();
+		
+		
 		//calc floor
-		double p = values.getConf().getPortfolio().doubleValue();
+		double p = portfolio.doubleValue();
 		double n = (new BigDecimal(1.0)).add(values.getConf().getRisklessAssetInterest()).doubleValue();
 		double e = 365 - service.getCurrentPeriod();
 		double div = e / 365;		
@@ -39,16 +43,27 @@ public class CPPIDoRules implements DoRules {
 		
 		BigDecimal TSR = st1.divide(st0,4,  BigDecimal.ROUND_HALF_UP).subtract(new BigDecimal(1));
 		
-		log.info("TSR: " + TSR);
-						
+		//Formel Wt
 		
-				
+		//parts manuell gesetzt zum testen
+		//sollten vom act berechnet werden. beim ersten mal selbst berechnen?
+		partRiskyAsset = new BigDecimal(9.5238095);
+		partRisklessAsset = new BigDecimal(90.47619);
+		double part2 = partRisklessAsset.doubleValue() * Math.pow(1+values.getConf().getRisklessAssetInterest().doubleValue(), 1/365);
+		exposure = (partRiskyAsset.multiply(new BigDecimal(1).add(TSR))).add(new BigDecimal(part2)).setScale(2, BigDecimal.ROUND_HALF_UP);
 		
+		//calc cushion
+		cushion = exposure.subtract(floor).max(new BigDecimal(0));
+		
+		log.info("W(t)= " + exposure +", TSR=" + TSR + ", st0=" +st0+", st1="+st1 + ", part2=" + part2);
+
 		log.info(floor + " - " + service.getCurrentPeriod());
 		
+		log.info("cushion= " + cushion);
 		
-		values.setFloor(floor);
-		service.setCppiValues(values);
+		
+		
+		service.setCppiValues(new CPPIValues(values.getConf(), portfolio, TSR,floor,cushion,exposure,reserveasset,partRiskyAsset, partRisklessAsset,st0,st1));
 
 	}
 
