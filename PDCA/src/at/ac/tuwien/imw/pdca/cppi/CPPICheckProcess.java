@@ -63,7 +63,7 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 			service.setCurrentTSR(performanceMeasureValue);
 			checkRules.applyCheckingRules();
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}

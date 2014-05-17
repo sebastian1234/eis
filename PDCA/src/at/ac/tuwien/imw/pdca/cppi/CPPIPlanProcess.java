@@ -31,7 +31,7 @@ public class CPPIPlanProcess extends PlanProcess implements Closeable {
 		log.info("Plan Process one time");
 		plan();
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

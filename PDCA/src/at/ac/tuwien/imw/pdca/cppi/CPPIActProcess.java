@@ -40,7 +40,7 @@ public class CPPIActProcess extends ActProcess<String, BigDecimal> implements Cl
 			Deviation<BigDecimal> deviation = CPPIService.getInstance().getTsrChange();
 			CorrectiveActOutput<String> actOutput = act(deviation);
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
