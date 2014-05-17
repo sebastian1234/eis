@@ -23,12 +23,12 @@ public class CPPIStockPriceGenerator implements Runnable, Closeable {
 	public void run() {
 		log.info("CPPIStockPriceGenerator process started");
 		while (running) {
+			CPPIService.getInstance().updateActualStockPrice();
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
-			CPPIService.getInstance().updateActualStockPrice();
 		}
 	}
 

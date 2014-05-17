@@ -126,7 +126,7 @@ public class CPPIService {
 		log.info("updateActualStockPrice");
 		currentPeriod++;
 		previousStockPrice = new BigDecimal(currentStockPrice.doubleValue());
-		currentStockPrice = new BigDecimal(stockPrices.get(currentPeriod % stockPrices.size()));
+		currentStockPrice = new BigDecimal(stockPrices.get(currentPeriod % stockPrices.size()-1));
 		log.info("CurrentStockPrice: " + currentStockPrice);
 	}
 
