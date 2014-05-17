@@ -55,11 +55,11 @@ public class CPPIDoRules implements DoRules {
 		//calc cushion
 		cushion = exposure.subtract(floor).max(new BigDecimal(0));
 		
-		log.info("W(t)= " + exposure +", TSR=" + TSR + ", st0=" +st0+", st1="+st1 + ", part2=" + part2);
-
-		log.info(floor + " - " + service.getCurrentPeriod());
-		
-		log.info("cushion= " + cushion);
+//		log.info("W(t)= " + exposure +", TSR=" + TSR + ", st0=" +st0+", st1="+st1 + ", part2=" + part2);
+//
+//		log.info(floor + " - " + service.getCurrentPeriod());
+//		
+//		log.info("cushion= " + cushion);
 		
 		
 		
