@@ -6,10 +6,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.imw.pdca.ActProcess;
-import at.ac.tuwien.imw.pdca.AdaptiveActRules;
+import at.ac.tuwien.imw.pdca.CorrectiveActRules;
 import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
-public class CPPIActRules implements AdaptiveActRules {
+public class CPPIActRules implements CorrectiveActRules {
 
 	private final static Logger log = LogManager.getLogger(ActProcess.class);
 
