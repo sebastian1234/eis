@@ -21,8 +21,10 @@ public class CPPIActRules implements AdaptiveActRules {
 
 	@Override
 	public void applyActRules() {
-		BigDecimal valueA = service.getPlanConfiguration().getRiskAssetPercent().multiply(service.getTsrChange().getValue());
-		BigDecimal valueB = service.getPlanConfiguration().getLaverage().multiply(service.getCurrentTSR().getValue());
+	  log.info("Act: b:" + service.getPlanConfiguration().getRiskAssetPercent()+"; W(t):"+service.getCppiValues().getExposure());
+	  log.info("Act: m:" + service.getPlanConfiguration().getLaverage()+"; C(t):"+service.getTsrChange().getValue());
+		BigDecimal valueA = service.getPlanConfiguration().getRiskAssetPercent().multiply(service.getCppiValues().getExposure());//.getTsrChange().getValue());
+		BigDecimal valueB = service.getPlanConfiguration().getLaverage().multiply(service.getTsrChange().getValue());//.getCurrentTSR().getValue());
 		if (valueA.compareTo(valueB) < 0) {
 			service.getCppiValues().setPartRiskyAsset(valueA);
 			service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueA));
