@@ -68,7 +68,10 @@ public class CPPIValues {
 				", Exposure: " + exposure.setScale(4, BigDecimal.ROUND_HALF_UP) + 
 				", PartRisky: " + partRiskyAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
 				", PartRiskless: " + partRisklessAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", NewPortfolio: " + portfolio.setScale(4, BigDecimal.ROUND_HALF_UP));
+				", NewPortfolio: " + portfolio.setScale(4, BigDecimal.ROUND_HALF_UP) +
+				", PreviousStockPrice: " + previousStockPrice.setScale(4, BigDecimal.ROUND_HALF_UP) +
+				", ActualStockPrice: " + actualStockPrice.setScale(4, BigDecimal.ROUND_HALF_UP));
+				
 	}
 
 	private void init() {
