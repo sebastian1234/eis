@@ -29,13 +29,13 @@ public class CPPIDoProcess extends DoProcess implements Closeable {
 	@Override
 	public void run() {
 		while (running) {
+			log.info("Do Process");
+			operate();
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
-			log.info("Do Process");
-			operate();
 		}
 	}
 
