@@ -27,14 +27,13 @@ public class CPPIPlanProcess extends PlanProcess implements Closeable {
 
 	@Override
 	public void run() {
-		while (running) {
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// e.printStackTrace();
-			}
-			log.info("Plan Process");
-			plan();
+
+		log.info("Plan Process one time");
+		plan();
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 

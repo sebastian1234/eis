@@ -35,14 +35,15 @@ public class CPPIActProcess extends ActProcess<String, BigDecimal> implements Cl
 	public void run() {
 
 		while (running) {
+
+			log.info("Act Process");
+			Deviation<BigDecimal> deviation = CPPIService.getInstance().getTsrChange();
+			CorrectiveActOutput<String> actOutput = act(deviation);
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
-			log.info("Act Process");
-			Deviation<BigDecimal> deviation = CPPIService.getInstance().getTsrChange();
-			CorrectiveActOutput<String> actOutput = act(deviation);
 		}
 	}
 
