@@ -10,14 +10,14 @@ import at.ac.tuwien.imw.pdca.PlanProcess;
 import at.ac.tuwien.imw.pdca.PlanningRules;
 import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
-public class CPPIPlanRules implements PlanningRules<Object>{
+public class CPPIPlanRules implements PlanningRules<BigDecimal>{
 
   private final static Logger log = LogManager.getLogger(PlanProcess.class);
 
   CPPIService service;
   
 	@Override
-	public Object applyPlanningRules() {
+	public BigDecimal applyPlanningRules() {
 	  service = CPPIService.getInstance();
 	  CPPIPlanConfiguration config = new CPPIPlanConfiguration();
 		service.setPlanConfiguration(config);
@@ -28,8 +28,8 @@ public class CPPIPlanRules implements PlanningRules<Object>{
 		service.getCppiValues().setCushion(cushion);
 		service.getCppiValues().setExposure(config.getPortfolio());
 
-    BigDecimal valueA = config.getRiskAssetPercent().multiply(config.getPortfolio());//.getTsrChange().getValue());
-    BigDecimal valueB = config.getLaverage().multiply(cushion);//.getCurrentTSR().getValue());
+    BigDecimal valueA = config.getRiskAssetPercent().multiply(config.getPortfolio());
+    BigDecimal valueB = config.getLaverage().multiply(cushion);
     if (valueA.compareTo(valueB) < 0) {
       service.getCppiValues().setPartRiskyAsset(valueA);
       service.getCppiValues().setPartRisklessAsset(config.getPortfolio().subtract(valueA));
