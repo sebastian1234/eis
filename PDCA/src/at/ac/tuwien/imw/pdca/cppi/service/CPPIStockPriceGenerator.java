@@ -24,7 +24,7 @@ public class CPPIStockPriceGenerator implements Runnable, Closeable {
 		log.info("CPPIStockPriceGenerator process started");
 		while (running) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}

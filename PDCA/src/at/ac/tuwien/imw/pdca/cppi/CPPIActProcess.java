@@ -21,7 +21,7 @@ public class CPPIActProcess extends ActProcess<String, BigDecimal> implements Cl
 	private CPPIActRules actRules;
 
 	private CPPIActProcess() {
-	  actRules = new CPPIActRules();
+		actRules = new CPPIActRules();
 	}
 
 	public static synchronized CPPIActProcess getInstance() {
@@ -36,17 +36,17 @@ public class CPPIActProcess extends ActProcess<String, BigDecimal> implements Cl
 
 		while (running) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
 			log.info("Act Process");
 			Deviation<BigDecimal> deviation = CPPIService.getInstance().getTsrChange();
-			CorrectiveActOutput<String> actOutput= act(deviation);
+			CorrectiveActOutput<String> actOutput = act(deviation);
 		}
 	}
 
-  @Override
+	@Override
 	public CorrectiveActOutput<String> act(Deviation<BigDecimal> deviation) {
 		actRules.applyActRules();
 		return null;

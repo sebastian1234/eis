@@ -29,7 +29,7 @@ public class CPPIPlanProcess extends PlanProcess implements Closeable {
 	public void run() {
 		while (running) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}

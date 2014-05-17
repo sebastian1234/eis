@@ -29,7 +29,7 @@ public class CPPISimulation {
 	// private static Thread xyProcessThread;
 	// ...
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		// Init
 		CPPIService.getInstance().init();
@@ -44,9 +44,13 @@ public class CPPISimulation {
 		Thread generatorThread = new Thread(stock);
 
 		generatorThread.start();
+		Thread.sleep(1000);
 		planProcessThread.start();
+		Thread.sleep(1000);
 		doProcessThread.start();
+		Thread.sleep(1000);
 		checkProcessThread.start();
+		Thread.sleep(1000);
 		actProcessThread.start();
 
 	}

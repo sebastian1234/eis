@@ -1,10 +1,8 @@
 package at.ac.tuwien.imw.pdca.cppi;
 
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.math.BigDecimal;
-
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,11 +23,11 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 	private boolean running = true;
 
 	private CheckingRules checkRules;
-  private ObjectiveSetting<BigDecimal> objective;
-  private MeasuredPerformanceValue<BigDecimal> performanceMeasureValue;
-  
+	private ObjectiveSetting<BigDecimal> objective;
+	private MeasuredPerformanceValue<BigDecimal> performanceMeasureValue;
+
 	private CPPICheckProcess() {
-	  checkRules = new CPPICheckRules();
+		checkRules = new CPPICheckRules();
 	}
 
 	public static synchronized CPPICheckProcess getInstance() {
@@ -43,27 +41,27 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 	public void run() {
 		while (running) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
 			CPPIService service = CPPIService.getInstance();
 			log.info("Check Process");
-			
+
 			objective = new CPPIObjectiveSetting(service.getCppiValues().getFloor());
-			//CPPIPlanConfiguration config = service.getPlanConfiguration();
-			//objective = new CPPIObjectiveSetting(config.getPortfolio().divide(((new BigDecimal(1.0)).add(config.getRisklessAssetInterest()))).pow(service.getCurrentPeriod()));
+			// CPPIPlanConfiguration config = service.getPlanConfiguration();
+			// objective = new CPPIObjectiveSetting(config.getPortfolio().divide(((new BigDecimal(1.0)).add(config.getRisklessAssetInterest()))).pow(service.getCurrentPeriod()));
 			performanceMeasureValue = (new CPPIMeasureRules()).measure();
-			
+
 			Deviation<BigDecimal> dev = getCheckResult(objective, performanceMeasureValue);
 			service.setDeviationValue(dev.getValue());
-			
-			if (dev.getValue().compareTo(BigDecimal.ZERO) > 0){
-			  service.setTsrChange(dev);
-			  service.getCppiValues().setCushion(dev.getValue());
+
+			if (dev.getValue().compareTo(BigDecimal.ZERO) > 0) {
+				service.setTsrChange(dev);
+				service.getCppiValues().setCushion(dev.getValue());
 			} else {
-			  service.setTsrChange((new CPPIDeviation(new BigDecimal(0))));
-			  service.getCppiValues().setCushion(new BigDecimal(0));
+				service.setTsrChange((new CPPIDeviation(new BigDecimal(0))));
+				service.getCppiValues().setCushion(new BigDecimal(0));
 			}
 			service.setCurrentTSR(performanceMeasureValue);
 			checkRules.applyCheckingRules();
@@ -72,10 +70,10 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 
 	@Override
 	public Deviation<BigDecimal> getCheckResult(ObjectiveSetting objective, MeasuredPerformanceValue performanceMeasureValue) {
-	  BigDecimal deviation;
-	 
-	  deviation = ((BigDecimal)performanceMeasureValue.getValue()).subtract((BigDecimal)objective.getObjectiveSetting());
-	  
+		BigDecimal deviation;
+
+		deviation = ((BigDecimal) performanceMeasureValue.getValue()).subtract((BigDecimal) objective.getObjectiveSetting());
+
 		return new CPPIDeviation(deviation);
 	}
 
