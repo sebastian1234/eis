@@ -69,7 +69,7 @@ public class CPPIService {
 		currentStockPrice = new BigDecimal(100);
 		previousStockPrice = new BigDecimal(100);
 		currentTSR = new CPPITSR(new BigDecimal(100));
-		stockPrices = new ArrayList<Integer>(Arrays.asList(new Integer[] { 102, 20, 10, 5, 115, 115, 117, 120, 119, 116, 116, 116, 114, 118, 120, 125, 130, 123, 119, 116, 115, 114, 113, 120 }));
+		stockPrices = new ArrayList<Integer>(Arrays.asList(new Integer[] { 102, 105, 110, 115, 115, 115, 117, 120, 119, 116, 116, 116, 114, 118, 120, 125, 130, 123, 119, 116, 115, 114, 113, 120 }));
 	}
 
 	public BigDecimal getDeviationValue() {
