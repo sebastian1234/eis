@@ -62,7 +62,8 @@ public class CPPIValues {
 		this.previousStockPrice = previousStockPrice;
 		this.actualStockPrice = actualStockPrice;
 		
-		log.info("Configuration period: " + 0 + ", Floor: " + floor.setScale(4, BigDecimal.ROUND_HALF_UP) + 
+		log.info("Configuration period: " + service.getCurrentPeriod() + 
+				", Floor: " + floor.setScale(4, BigDecimal.ROUND_HALF_UP) + 
 				", Cushion: " + cushion.setScale(4, BigDecimal.ROUND_HALF_UP) + 
 				", Exposure: " + exposure.setScale(4, BigDecimal.ROUND_HALF_UP) + 
 				", PartRisky: " + partRiskyAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
