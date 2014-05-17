@@ -10,7 +10,7 @@ public class CPPIMeasureRules implements MeasureRules {
 
 	@Override
 	public MeasuredPerformanceValue<BigDecimal> measure() {
-		return CPPIService.getInstance().getCurrentTSR();
+		return new CPPIMeasuredPerformanceValue(CPPIService.getInstance().getCppiValues().getExposure());
 	}
 
 }
