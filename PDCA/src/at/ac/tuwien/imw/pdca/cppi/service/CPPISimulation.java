@@ -47,11 +47,12 @@ public class CPPISimulation {
 		Thread.sleep(100);
 		doProcessThread.start();
 		Thread.sleep(100);
-		generatorThread.start();
-		Thread.sleep(100);
 		checkProcessThread.start();
 		Thread.sleep(100);
 		actProcessThread.start();
+		Thread.sleep(100);
+		generatorThread.start();
+    
 
 	}
 
