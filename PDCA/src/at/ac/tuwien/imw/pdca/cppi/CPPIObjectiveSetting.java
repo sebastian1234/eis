@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 import at.ac.tuwien.imw.pdca.ObjectiveSetting;
 
-public class CPPIObjectiveSetting extends ObjectiveSetting<BigDecimal>{
+public class CPPIObjectiveSetting extends ObjectiveSetting<BigDecimal> {
 
-  public BigDecimal value;
-  
-  public CPPIObjectiveSetting(BigDecimal value){
-    this.value = value;
-  }
+	public CPPIObjectiveSetting() {
+		super();
+
+	}
+
 }

@@ -47,8 +47,9 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 			}
 			CPPIService service = CPPIService.getInstance();
 			log.info("Check Process");
-
-			objective = new CPPIObjectiveSetting(service.getCppiValues().getFloor());
+			BigDecimal floor = service.getCppiValues().getFloor();
+			objective = new CPPIObjectiveSetting();
+			objective.setObjectiveSetting(floor);
 			// CPPIPlanConfiguration config = service.getPlanConfiguration();
 			// objective = new CPPIObjectiveSetting(config.getPortfolio().divide(((new BigDecimal(1.0)).add(config.getRisklessAssetInterest()))).pow(service.getCurrentPeriod()));
 			performanceMeasureValue = (new CPPIMeasureRules()).measure();
@@ -71,7 +72,9 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 	@Override
 	public Deviation<BigDecimal> getCheckResult(ObjectiveSetting objective, MeasuredPerformanceValue performanceMeasureValue) {
 		BigDecimal deviation;
-
+		log.info("----------------");
+		log.info(objective.getObjectiveSetting());
+		log.info("----------------");
 		deviation = ((BigDecimal) performanceMeasureValue.getValue()).subtract((BigDecimal) objective.getObjectiveSetting());
 
 		return new CPPIDeviation(deviation);
