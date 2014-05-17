@@ -33,16 +33,32 @@ public class CPPIActProcess extends ActProcess<String, BigDecimal> implements Cl
 
 	@Override
 	public void run() {
-
+	  try {
+	    synchronized(this){
+        wait();
+      }
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 		while (running) {
-			try {
+			/*try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
-			}
+			}*/
 			log.info("Act Process");
 			Deviation<BigDecimal> deviation = CPPIService.getInstance().getTsrChange();
 			CorrectiveActOutput<String> actOutput= act(deviation);
+			CPPIService.getInstance().notifyDo();
+			try {
+			  synchronized(this){
+	        wait();
+	      }
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
 		}
 	}
 

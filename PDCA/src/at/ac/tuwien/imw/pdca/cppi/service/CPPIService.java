@@ -3,13 +3,19 @@ package at.ac.tuwien.imw.pdca.cppi.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.imw.pdca.Deviation;
 import at.ac.tuwien.imw.pdca.MeasuredPerformanceValue;
+import at.ac.tuwien.imw.pdca.cppi.CPPIActProcess;
+import at.ac.tuwien.imw.pdca.cppi.CPPICheckProcess;
+import at.ac.tuwien.imw.pdca.cppi.CPPIDoProcess;
 import at.ac.tuwien.imw.pdca.cppi.CPPIPlanConfiguration;
+import at.ac.tuwien.imw.pdca.cppi.CPPIPlanProcess;
 import at.ac.tuwien.imw.pdca.cppi.CPPITSR;
 import at.ac.tuwien.imw.pdca.cppi.CPPIValues;
 
@@ -46,6 +52,12 @@ public class CPPIService {
 	// Wrapper for all cppi values (exposure, reserve asset, etc.)
 	private CPPIValues cppiValues;
 
+	Thread planProcessThread;
+  Thread doProcessThread;
+  Thread checkProcessThread;
+  Thread actProcessThread;
+  Thread generatorThread;
+  
 	private CPPIService() {
 	}
 
@@ -145,5 +157,37 @@ public class CPPIService {
 	public void exit(){
 	  //TODO exit
 	}
+
+  public void setThreads(Thread planProcessThread, Thread doProcessThread, Thread checkProcessThread, Thread actProcessThread,
+      Thread generatorThread) {
+    
+    this.planProcessThread = planProcessThread;
+    this.doProcessThread = doProcessThread;
+    this.checkProcessThread = checkProcessThread;
+    this.actProcessThread = actProcessThread;
+    this.generatorThread = generatorThread;
+  }
+  BlockingQueue<?> queue = new ArrayBlockingQueue(4);
+  public void notifyPlan(){
+    synchronized(planProcessThread){
+      planProcessThread.notify();
+    }
+  }
+  public void notifyDo(){
+    synchronized(doProcessThread){
+      doProcessThread.notify();
+    }
+  }
+  public void notifyCheck(){
+    synchronized(checkProcessThread){
+      checkProcessThread.notify();
+    }
+  }
+  public void notifyAct(){
+    synchronized(actProcessThread){
+      actProcessThread.notify();
+    }
+  }
+  
 
 }

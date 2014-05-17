@@ -41,12 +41,22 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 
 	@Override
 	public void run() {
+	  try {
+	    synchronized(this){
+        wait();
+      }
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 		while (running) {
-			try {
+			/*
+			 * try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}
+			*/
 			CPPIService service = CPPIService.getInstance();
 			log.info("Check Process");
 			
@@ -67,6 +77,15 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 			}
 			service.setCurrentTSR(performanceMeasureValue);
 			checkRules.applyCheckingRules();
+			service.notifyAct();
+			try {
+			  synchronized(this){
+	        wait();
+	      }
+	    } catch (InterruptedException e1) {
+	      // TODO Auto-generated catch block
+	      e1.printStackTrace();
+	    }
 		}
 	}
 

@@ -39,7 +39,7 @@ public class CPPIDoRules implements DoRules {
 		
 		BigDecimal TSR = st1.divide(st0,4,  BigDecimal.ROUND_HALF_UP).subtract(new BigDecimal(1));
 		
-		log.info("TSR: " + TSR);
+		log.info("st0: " + st0 + "; st1: " + st1 + "; TSR: " + TSR);
 						
 		
 				

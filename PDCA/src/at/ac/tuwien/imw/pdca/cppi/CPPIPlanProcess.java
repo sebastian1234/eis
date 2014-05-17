@@ -7,6 +7,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.imw.pdca.PlanProcess;
+import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
 public class CPPIPlanProcess extends PlanProcess implements Closeable {
 
@@ -28,13 +29,25 @@ public class CPPIPlanProcess extends PlanProcess implements Closeable {
 	@Override
 	public void run() {
 		while (running) {
-			try {
+			/*try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
-			}
+			}*/
 			log.info("Plan Process");
 			plan();
+			System.out.println("Notify Do");
+			CPPIService.getInstance().notifyDo();
+			try {
+			  synchronized(this){
+			    System.out.println("waitNotify Do");
+	        wait();
+	        System.out.println("waitNotify Do");
+	      }
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
 		}
 	}
 
