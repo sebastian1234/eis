@@ -34,8 +34,10 @@ public class CPPISimulation {
 		// Init
 		CPPIService.getInstance().init();
 		CPPIService.getInstance().setPlanConfiguration(new CPPIPlanConfiguration()); // auslagern in plan?
+		
+		
 		stock = new CPPIStockPriceGenerator();
-
+		CPPIService.getInstance().setGenerator(stock);
 		// Threads
 		Thread planProcessThread = new Thread(CPPIPlanProcess.getInstance());
 		Thread doProcessThread = new Thread(CPPIDoProcess.getInstance());
@@ -43,6 +45,7 @@ public class CPPISimulation {
 		Thread actProcessThread = new Thread(CPPIActProcess.getInstance());
 		Thread generatorThread = new Thread(stock);
 
+		
 		planProcessThread.start();
 		Thread.sleep(100);
     generatorThread.start();

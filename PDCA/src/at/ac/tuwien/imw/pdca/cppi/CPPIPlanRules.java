@@ -27,20 +27,17 @@ public class CPPIPlanRules implements PlanningRules<Object>{
 		BigDecimal cushion = config.getPortfolio().subtract(f0);
 		service.getCppiValues().setCushion(cushion);
 		service.getCppiValues().setExposure(config.getPortfolio());
-		log.info("Plan: b:" + config.getRiskAssetPercent()+"; W(0):"+config.getPortfolio());
-    log.info("Plan: m:" + config.getLaverage()+"; C(0):"+cushion);
+
     BigDecimal valueA = config.getRiskAssetPercent().multiply(config.getPortfolio());//.getTsrChange().getValue());
     BigDecimal valueB = config.getLaverage().multiply(cushion);//.getCurrentTSR().getValue());
     if (valueA.compareTo(valueB) < 0) {
       service.getCppiValues().setPartRiskyAsset(valueA);
       service.getCppiValues().setPartRisklessAsset(config.getPortfolio().subtract(valueA));
-      log.info("New risky portion: " + valueA);
-      log.info("New riskless portion: " + config.getPortfolio().subtract(valueA));
+
     } else {
       service.getCppiValues().setPartRiskyAsset(valueB);
       service.getCppiValues().setPartRisklessAsset(config.getPortfolio().subtract(valueB));
-      log.info("New risky portion: " + valueB);
-      log.info("New riskless portion: " + config.getPortfolio().subtract(valueB));
+
 
     }
     

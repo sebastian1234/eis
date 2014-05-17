@@ -21,20 +21,14 @@ public class CPPIActRules implements AdaptiveActRules {
 
 	@Override
 	public void applyActRules() {
-	  log.info("Act: b:" + service.getPlanConfiguration().getRiskAssetPercent()+"; W(t):"+service.getCppiValues().getExposure());
-	  log.info("Act: m:" + service.getPlanConfiguration().getLaverage()+"; C(t):"+service.getTsrChange().getValue());
 		BigDecimal valueA = service.getPlanConfiguration().getRiskAssetPercent().multiply(service.getCppiValues().getExposure());//.getTsrChange().getValue());
 		BigDecimal valueB = service.getPlanConfiguration().getLaverage().multiply(service.getTsrChange().getValue());//.getCurrentTSR().getValue());
 		if (valueA.compareTo(valueB) < 0) {
 			service.getCppiValues().setPartRiskyAsset(valueA);
 			service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueA));
-			log.info("New risky portion: " + valueA);
-			log.info("New riskless portion: " + service.getCurrentTSR().getValue().subtract(valueA));
 		} else {
 			service.getCppiValues().setPartRiskyAsset(valueB);
 			service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueB));
-			log.info("New risky portion: " + valueB);
-			log.info("New riskless portion: " + service.getCurrentTSR().getValue().subtract(valueB));
 
 		}
 	}

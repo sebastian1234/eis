@@ -1,5 +1,6 @@
 package at.ac.tuwien.imw.pdca.cppi.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +10,11 @@ import org.apache.log4j.Logger;
 
 import at.ac.tuwien.imw.pdca.Deviation;
 import at.ac.tuwien.imw.pdca.MeasuredPerformanceValue;
+import at.ac.tuwien.imw.pdca.cppi.CPPIActProcess;
+import at.ac.tuwien.imw.pdca.cppi.CPPICheckProcess;
+import at.ac.tuwien.imw.pdca.cppi.CPPIDoProcess;
 import at.ac.tuwien.imw.pdca.cppi.CPPIPlanConfiguration;
+import at.ac.tuwien.imw.pdca.cppi.CPPIPlanProcess;
 import at.ac.tuwien.imw.pdca.cppi.CPPITSR;
 import at.ac.tuwien.imw.pdca.cppi.CPPIValues;
 
@@ -46,6 +51,8 @@ public class CPPIService {
 	// Wrapper for all cppi values (exposure, reserve asset, etc.)
 	private CPPIValues cppiValues;
 
+	private CPPIStockPriceGenerator generator;
+	
 	private CPPIService() {
 	}
 
@@ -62,7 +69,7 @@ public class CPPIService {
 		currentStockPrice = new BigDecimal(100);
 		previousStockPrice = new BigDecimal(100);
 		currentTSR = new CPPITSR(new BigDecimal(100));
-		stockPrices = new ArrayList<Integer>(Arrays.asList(new Integer[] { 102, 105, 110, 115, 115, 115, 117, 120, 119, 116, 116, 116, 114, 118, 120, 125, 130, 123, 119, 116, 115, 114, 113, 120 }));
+		stockPrices = new ArrayList<Integer>(Arrays.asList(new Integer[] { 102, 20, 10, 5, 115, 115, 117, 120, 119, 116, 116, 116, 114, 118, 120, 125, 130, 123, 119, 116, 115, 114, 113, 120 }));
 	}
 
 	public BigDecimal getDeviationValue() {
@@ -144,6 +151,22 @@ public class CPPIService {
 	
 	public void exit(){
 	  //TODO exit
+	  try {
+      CPPIPlanProcess.getInstance().close();
+      CPPIDoProcess.getInstance().close();
+      CPPICheckProcess.getInstance().close();
+      CPPIActProcess.getInstance().close();
+      generator.close();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+	  log.info("Exposure too low. No further investment in risky invest.");
 	}
+
+  public void setGenerator(CPPIStockPriceGenerator stock) {
+    this.generator = stock;
+    
+  }
 
 }

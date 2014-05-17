@@ -73,9 +73,6 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 	@Override
 	public Deviation<BigDecimal> getCheckResult(ObjectiveSetting objective, MeasuredPerformanceValue performanceMeasureValue) {
 		BigDecimal deviation;
-		log.info("----------------");
-		log.info(objective.getObjectiveSetting());
-		log.info("----------------");
 		deviation = ((BigDecimal) performanceMeasureValue.getValue()).subtract((BigDecimal) objective.getObjectiveSetting());
 
 		return new CPPIDeviation(deviation);
