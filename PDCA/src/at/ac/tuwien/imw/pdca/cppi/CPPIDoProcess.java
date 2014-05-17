@@ -32,7 +32,7 @@ public class CPPIDoProcess extends DoProcess implements Closeable {
 			log.info("Do Process");
 			operate();
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// e.printStackTrace();
 			}

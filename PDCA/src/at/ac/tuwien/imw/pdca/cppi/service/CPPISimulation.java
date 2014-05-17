@@ -43,14 +43,14 @@ public class CPPISimulation {
 		Thread actProcessThread = new Thread(CPPIActProcess.getInstance());
 		Thread generatorThread = new Thread(stock);
 
-		generatorThread.start();
-		Thread.sleep(1000);
 		planProcessThread.start();
-		Thread.sleep(1000);
+		Thread.sleep(100);
 		doProcessThread.start();
-		Thread.sleep(1000);
+		Thread.sleep(100);
+		generatorThread.start();
+		Thread.sleep(100);
 		checkProcessThread.start();
-		Thread.sleep(1000);
+		Thread.sleep(100);
 		actProcessThread.start();
 
 	}
