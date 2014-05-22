@@ -21,8 +21,10 @@ public class CPPIActRules implements CorrectiveActRules {
 
 	@Override
 	public void applyActRules() {
-		BigDecimal valueA = service.getPlanConfiguration().getRiskAssetPercent().multiply(service.getCppiValues().getExposure());//.getTsrChange().getValue());
-		BigDecimal valueB = service.getPlanConfiguration().getLaverage().multiply(service.getTsrChange().getValue());//.getCurrentTSR().getValue());
+		BigDecimal valueA = service.getPlanConfiguration().getRiskAssetPercent().
+				multiply(service.getCppiValues().getExposure());
+		BigDecimal valueB = service.getPlanConfiguration().getLaverage().
+				multiply(service.getTsrChange().getValue());
 		if (valueA.compareTo(valueB) < 0) {
 			service.getCppiValues().setPartRiskyAsset(valueA);
 			service.getCppiValues().setPartRisklessAsset(service.getCurrentTSR().getValue().subtract(valueA));
