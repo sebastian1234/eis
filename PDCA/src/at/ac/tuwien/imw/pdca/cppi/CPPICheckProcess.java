@@ -42,7 +42,7 @@ public class CPPICheckProcess extends CheckProcess<BigDecimal> implements Closea
 		while (running) {
 
 			CPPIService service = CPPIService.getInstance();
-			log.info("Check Process");
+			log.info("Check Process misst ob es noch ein Sicherheitspolster gibt.");
 			BigDecimal floor = service.getCppiValues().getFloor();
 			objective = new CPPIObjectiveSetting();
 			objective.setObjectiveSetting(floor);

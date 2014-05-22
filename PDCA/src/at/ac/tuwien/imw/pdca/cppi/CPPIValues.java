@@ -10,7 +10,7 @@ import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 public class CPPIValues {
 
 	private final static Logger log = LogManager.getLogger(CPPIValues.class);
-	
+
 	private CPPIService service = CPPIService.getInstance();
 
 	private CPPIPlanConfiguration conf;
@@ -36,16 +36,11 @@ public class CPPIValues {
 		this.reserveasset = new BigDecimal(0);
 		this.partRisklessAsset = new BigDecimal(0);
 		this.partRiskyAsset = new BigDecimal(0);
-		
-		
 
 		// TODO Implement me
 		// some calculations
 		// i.e. floor, cushion, exposure, ...
 
-		
-		
-		
 	}
 
 	public CPPIValues(CPPIPlanConfiguration conf, BigDecimal portfolio, BigDecimal tsr, BigDecimal floor, BigDecimal cushion, BigDecimal exposure, BigDecimal reserveasset, BigDecimal partRiskyAsset, BigDecimal partRisklessAsset, BigDecimal previousStockPrice, BigDecimal actualStockPrice) {
@@ -61,17 +56,10 @@ public class CPPIValues {
 		this.partRisklessAsset = partRisklessAsset;
 		this.previousStockPrice = previousStockPrice;
 		this.actualStockPrice = actualStockPrice;
-		
-		/*log.info("Configuration period: " + service.getCurrentPeriod() + 
-				", Floor: " + floor.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", Cushion: " + cushion.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", Exposure: " + exposure.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", PartRisky: " + partRiskyAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", PartRiskless: " + partRisklessAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + 
-				", NewPortfolio: " + portfolio.setScale(4, BigDecimal.ROUND_HALF_UP) +
-				", PreviousStockPrice: " + previousStockPrice.setScale(4, BigDecimal.ROUND_HALF_UP) +
-				", ActualStockPrice: " + actualStockPrice.setScale(4, BigDecimal.ROUND_HALF_UP));
-				*/
+
+		/*
+		 * log.info("Configuration period: " + service.getCurrentPeriod() + ", Floor: " + floor.setScale(4, BigDecimal.ROUND_HALF_UP) + ", Cushion: " + cushion.setScale(4, BigDecimal.ROUND_HALF_UP) + ", Exposure: " + exposure.setScale(4, BigDecimal.ROUND_HALF_UP) + ", PartRisky: " + partRiskyAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + ", PartRiskless: " + partRisklessAsset.setScale(4, BigDecimal.ROUND_HALF_UP) + ", NewPortfolio: " + portfolio.setScale(4, BigDecimal.ROUND_HALF_UP) + ", PreviousStockPrice: " + previousStockPrice.setScale(4, BigDecimal.ROUND_HALF_UP) + ", ActualStockPrice: " + actualStockPrice.setScale(4, BigDecimal.ROUND_HALF_UP));
+		 */
 	}
 
 	private void init() {

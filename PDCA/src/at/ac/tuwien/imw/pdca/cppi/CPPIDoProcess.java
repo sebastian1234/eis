@@ -29,7 +29,7 @@ public class CPPIDoProcess extends DoProcess implements Closeable {
 	@Override
 	public void run() {
 		while (running) {
-			log.info("Do Process");
+			log.info("Do Prozess: Berechnung aller benötigten Variablen: Cushion, Floor, Portfoliowert, TSR");
 			operate();
 			try {
 				Thread.sleep(1000);

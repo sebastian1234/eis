@@ -29,7 +29,7 @@ public class CPPIPlanProcess extends PlanProcess<BigDecimal> implements Closeabl
 	@Override
 	public void run() {
 
-		log.info("Plan Process one time");
+		log.info("Plan Prozess (einmalig): Initialisiert die Variablen für den ersten Durchlauf.");
 		plan();
 		try {
 			Thread.sleep(1000);

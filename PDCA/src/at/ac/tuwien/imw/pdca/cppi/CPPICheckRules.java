@@ -10,15 +10,15 @@ import at.ac.tuwien.imw.pdca.cppi.service.CPPIService;
 
 public class CPPICheckRules implements CheckingRules {
 
-  private final static Logger log = LogManager.getLogger(CPPICheckProcess.class);
-  
+	private final static Logger log = LogManager.getLogger(CPPICheckProcess.class);
+
 	@Override
 	public void applyCheckingRules() {
-		
-		if (CPPIService.getInstance().getTsrChange().getValue().compareTo(BigDecimal.ZERO) <= 0){
-		  log.info("Deviation <= 0: " + CPPIService.getInstance().getTsrChange().getValue().doubleValue());
-		  CPPIService.getInstance().exit();
+
+		if (CPPIService.getInstance().getTsrChange().getValue().compareTo(BigDecimal.ZERO) <= 0) {
+			// getTsrChange() missbraucht für Cushion!!!!!!
+			log.info("Cushion <= 0: " + CPPIService.getInstance().getTsrChange().getValue().doubleValue() + " System exit");
+			CPPIService.getInstance().exit();
 		}
 	}
-
 }

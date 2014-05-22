@@ -36,12 +36,12 @@ public class CPPIActProcess extends ActProcess<String, BigDecimal> implements Cl
 
 		while (running) {
 
-			log.info("Act Process");
+			log.info("Act Process: Berechnet wie viel Geld in die sichere- und wie viel in die riskante Anlage investiert werden soll.");
 			Deviation<BigDecimal> deviation = CPPIService.getInstance().getTsrChange();
 			CorrectiveActOutput<String> actOutput = act(deviation);
 
 			log.info("Configuration period: " + CPPIService.getInstance().getCurrentPeriod() + ", Floor: " + CPPIService.getInstance().getCppiValues().getFloor().setScale(4, BigDecimal.ROUND_HALF_UP) + ", Cushion: " + CPPIService.getInstance().getCppiValues().getCushion().setScale(4, BigDecimal.ROUND_HALF_UP) + ", Exposure: " + CPPIService.getInstance().getCppiValues().getExposure().setScale(4, BigDecimal.ROUND_HALF_UP) + ", PartRisky: " + CPPIService.getInstance().getCppiValues().getPartRiskyAsset().setScale(4, BigDecimal.ROUND_HALF_UP) + ", PartRiskless: " + CPPIService.getInstance().getCppiValues().getPartRisklessAsset().setScale(4, BigDecimal.ROUND_HALF_UP) + ", NewPortfolio: " + CPPIService.getInstance().getCppiValues().getPortfolio().setScale(4, BigDecimal.ROUND_HALF_UP)
-					+ ", PreviousStockPrice: " + CPPIService.getInstance().getCppiValues().getPreviousStockPrice().setScale(4, BigDecimal.ROUND_HALF_UP) + ", ActualStockPrice: " + CPPIService.getInstance().getCppiValues().getActualStockPrice().setScale(4, BigDecimal.ROUND_HALF_UP));
+					+ ", PreviousStockPrice: " + CPPIService.getInstance().getCppiValues().getPreviousStockPrice().setScale(4, BigDecimal.ROUND_HALF_UP) + ", ActualStockPrice: " + CPPIService.getInstance().getCppiValues().getActualStockPrice().setScale(4, BigDecimal.ROUND_HALF_UP) + "\n");
 
 			try {
 				Thread.sleep(1000);
